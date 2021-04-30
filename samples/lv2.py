@@ -39,12 +39,12 @@ if __name__ == "__main__":
     emulator.modules.add_symbol_hook('sprintf', emulator.hooker.write_function(sprintf) + 1)
 
 
-
     emulator.load_library('lib/libc.so', do_init=False)
     libmod = emulator.load_library('lib/libnative-lib.so', do_init=False)
 
+    dbg = udbg.UnicornDebugger(emulator.mu)
+
     try:
-        dbg = udbg.UnicornDebugger(emulator.mu)
         s = emulator.call_symbol(libmod, 'Java_com_sec_udemo_MainActivity_sign_1lv2',
                              emulator.java_vm.jni_env.address_ptr, 0, "123")
 
